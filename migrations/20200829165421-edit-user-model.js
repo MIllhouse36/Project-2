@@ -17,8 +17,8 @@ module.exports = {
   },
 
   down: async queryInterface => {
-    queryInterface.removeColumn("Users", "city");
-    queryInterface.removeColumn("Users", "state");
-    queryInterface.removeColumn("Users", "zip");
+    queryInterface.removeColumn("users", "city");
+    queryInterface.removeColumn("users", "state");
+    queryInterface.removeColumn("users", "zip");
   }
 };
