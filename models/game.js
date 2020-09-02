@@ -5,12 +5,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    summary: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     platform: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    userID: {
-      type: DataTypes.INTEGER,
+    user: {
+      type: DataTypes.STRING,
       allowNull: false
     }
   });
