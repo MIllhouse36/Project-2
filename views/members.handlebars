@@ -4,13 +4,16 @@
       <a class="navbar-brand" href="/logout">
         Logout
       </a>
+      <a class="navbar-brand" href="#">
+        <button id="view-collection">View Collection</button>
+      </a>
     </div>
   </div>
 </nav>
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h2>Welcome {{email}}</h2>
+        <h2>Welcome <span id="user-email">{{email}}</span></h2>
         <p>{{city}}, {{state}} {{zip}}</p>
       </div>
     </div>
@@ -20,3 +23,39 @@
       <button id="search-title">Search</button>
       <div id="output"></div>
   </div>
+  <script>
+    $('#view-collection').on('click',function(event){
+      event.preventDefault;
+      $('#output').empty();
+      let user = $("#user-email").text();
+      $.get("/api/view/" + user, data => {
+        console.log(data);
+        for(let i = 0; i < data.length; i++){
+        let html = `
+        <div class="search-container">
+        <h3>${data[i].title}</h3>
+        <p>${data[i].summary}</p>
+        <button id='delete-game'">Delete Game</button>
+        </div>
+        `
+        $('#output').append(html);
+        }
+      });
+
+      $(document).on('click','#delete-game',function(event){
+        let gameTitle = event.target.parentElement.children[0].outerText;
+        let gameSummary = event.target.parentElement.children[1].outerText;
+        let userData = $("#user-email").text();
+        const game = {
+          title: gameTitle,
+          summary: gameSummary,
+          user: userData
+        }
+        $.post("/api/deletegame", game)
+          .then(() => {
+            location.reload();
+          })
+          .catch(handleLoginErr);
+      })
+    })
+  </script>

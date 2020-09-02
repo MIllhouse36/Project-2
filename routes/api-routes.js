@@ -37,6 +37,38 @@ module.exports = function(app) {
     console.log(req.body);
   });
 
+  app.post("/api/addgame", (req, res) => {
+    db.Game.create({
+      title: req.body.title,
+      summary: req.body.summary,
+      user: req.body.user
+    })
+      .then(() => {
+        res.redirect("/members");
+      })
+      .catch(err => {
+        // res.status(401).json(err);
+        console.log(err);
+      });
+    console.log(req.body);
+  });
+
+  app.post("/api/deletegame", (req, res) => {
+    db.Game.destroy({
+      where: {
+        title: req.body.title
+      }
+    })
+      .then(() => {
+        res.redirect("/members");
+      })
+      .catch(err => {
+        // res.status(401).json(err);
+        console.log(err);
+      });
+    console.log(req.body);
+  });
+
   // Route for logging user out
   app.get("/logout", (req, res) => {
     req.logout();
@@ -77,5 +109,17 @@ module.exports = function(app) {
         id: req.user.id
       });
     }
+  });
+
+  app.get("/api/view/:user", (req, res) => {
+    // return everything in the games table
+    const userName = req.params.user;
+    db.Game.findAll({
+      where: {
+        user: userName
+      }
+    }).then(data => {
+      res.send(data);
+    });
   });
 };
