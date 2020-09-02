@@ -10,6 +10,9 @@ const db = require("./models");
 
 // Creating express app and configuring middleware needed for authentication
 const app = express();
+//loadup env_variables
+require("dotenv").config();
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));

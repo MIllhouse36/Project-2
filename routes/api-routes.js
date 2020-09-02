@@ -2,7 +2,7 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const axios = require("axios");
-const API_KEY = "c4e5fb9f6a661a8cdefabcef19d13d55";
+const igdbApiKey = process.env.IGDB_API_KEY;
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -51,7 +51,7 @@ module.exports = function(app) {
       method: "GET",
       headers: {
         Accept: "application/json",
-        "user-key": API_KEY
+        "user-key": igdbApiKey
       },
       data: `search "${search}"; fields name, platforms;`
     })
