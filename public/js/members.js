@@ -4,4 +4,15 @@ $(document).ready(() => {
   $.get("/api/user_data").then(data => {
     $(".member-name").text(data.email);
   });
+  $("#search-title").on("click", () => {
+    const search = $("#title-search").val();
+    const url = encodeURIComponent(search);
+
+    $.get("/api/search/" + url, data => {
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        $("#output").append(data[i]);
+      }
+    });
+  });
 });

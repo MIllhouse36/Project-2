@@ -1,6 +1,8 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+const axios = require("axios");
+const API_KEY = "c4e5fb9f6a661a8cdefabcef19d13d55";
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -39,6 +41,27 @@ module.exports = function(app) {
   app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
+  });
+
+  app.get("/api/search/:query", (req, res) => {
+    const search = decodeURIComponent(req.params.query);
+    console.log(search);
+    axios({
+      url: "https://api-v3.igdb.com/games",
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "user-key": API_KEY
+      },
+      data: `search "${search}"; fields name, platforms;`
+    })
+      .then(response => {
+        console.log(response.data);
+        return res.json(response.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   });
 
   // Route for getting some data about our user to be used client side
