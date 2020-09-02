@@ -17,6 +17,17 @@ $(document).ready(() => {
       state: stateInput.find(":selected").val(),
       zip: zipInput.val().trim()
     };
+    const data = {
+      search: $("#title-search")
+        .val()
+        .trim()
+    };
+    $.post("/api/signup", data)
+      .then(() => {
+        window.location.replace("/members");
+        // If there's an error, handle it by throwing up a bootstrap alert
+      })
+      .catch(handleLoginErr);
     if (
       !userData.email ||
       !userData.password ||

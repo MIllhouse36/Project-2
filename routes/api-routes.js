@@ -53,7 +53,7 @@ module.exports = function(app) {
         Accept: "application/json",
         "user-key": igdbApiKey
       },
-      data: `search "${search}"; fields name, platforms;`
+      data: `search "${search}"; fields name, platforms, cover, rating, summary;`
     })
       .then(response => {
         console.log(response.data);
