@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 		<title>GameSwap</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="stylesheets/style.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	</head>
@@ -66,17 +67,6 @@
       state: stateInput.find(":selected").val(),
       zip: zipInput.val().trim()
     };
-    const data = {
-      search: $("#title-search")
-        .val()
-        .trim()
-    }
-    $.post("/api/signup", data)
-      .then(() => {
-        window.location.replace("/members");
-        // If there's an error, handle it by throwing up a bootstrap alert
-      })
-      .catch(handleLoginErr);
     if (
       !userData.email ||
       !userData.password ||
