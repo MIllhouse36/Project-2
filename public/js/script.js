@@ -191,9 +191,9 @@ $(document).ready(() => {
     const user = event.target.innerHTML.trim();
     console.log(event.target);
     $.get("/viewuser/" + user, data => {
-        console.log(data);
-        $(".modal-body").empty();
-        $(".modal-body").html(data);
+      console.log(data);
+      $(".modal-body").empty();
+      $(".modal-body").html(data);
     });
   });
 
