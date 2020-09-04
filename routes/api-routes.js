@@ -41,7 +41,8 @@ module.exports = function(app) {
     db.Game.create({
       title: req.body.title,
       summary: req.body.summary,
-      user: req.body.user
+      user: req.body.user,
+      platform: req.body.platform
     })
       .then(() => {
         res.redirect("/members");
@@ -76,7 +77,10 @@ module.exports = function(app) {
   });
 
   app.get("/api/search/:query", (req, res) => {
-    const search = decodeURIComponent(req.params.query);
+    const query = req.params.query;
+    const split = query.split("xxxxx");
+    const platform = split[0];
+    const search = decodeURIComponent(split[1]);
     console.log(search);
     axios({
       url: "https://api-v3.igdb.com/games",
@@ -85,7 +89,11 @@ module.exports = function(app) {
         Accept: "application/json",
         "user-key": igdbApiKey
       },
-      data: `search "${search}"; fields name, platforms, cover, rating, summary;`
+      data: `
+      search "${search}";
+      f name,summary,platforms;
+      w platforms = (${platform});
+      `
     })
       .then(response => {
         console.log(response.data);

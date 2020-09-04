@@ -104,10 +104,12 @@
    $.get("/api/user_data").then(data => {
     $(".member-name").text(data.email);
   });
+  
   $("#search-title").on("click", () => {
     const search = $("#title-search").val();
-    const url = encodeURIComponent(search);
-	$('#output').empty();
+    const platform = $("#platforms").find(":selected").val();
+    const url = platform + "xxxxx" + encodeURIComponent(search);
+	  $('#output').empty();
     $.get("/api/search/" + url, data => {
       console.log(data);
 	  for(let i = 0; i < data.length; i++){
@@ -116,6 +118,7 @@
 		<h3>${data[i].name}</h3>
 		<p>${data[i].summary}</p>
 		<button id='add-game'">Add Game</button>
+    <button id='find-game'">Find Game</button>
 		</div>
 		`
 		console.log(html);
@@ -127,16 +130,23 @@
 		let gameTitle = event.target.parentElement.children[0].outerText;
 		let gameSummary = event.target.parentElement.children[1].outerText;
 		let userData = $("#user-email").text();
+    let gamePlatform = $("#platforms").find(":selected").text();
 		const newGame = {
 			title: gameTitle,
 			summary: gameSummary,
-			user: userData
+			user: userData,
+      platform: gamePlatform
 		}
 		 $.post("/api/addgame", newGame)
 			.then(() => {
 				location.reload();
 			})
 			.catch(handleLoginErr);
+	})
+
+	$(document).on('click','#find-game',function(event){
+		let gameTitle = event.target.parentElement.children[0].outerText;
+		// get route to find game
 	})
 
   });
