@@ -1,5 +1,6 @@
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
+const db = require("../models");
 
 module.exports = function(app) {
   app.get("/", (req, res) => {
@@ -28,6 +29,21 @@ module.exports = function(app) {
       // res.sendFile(path.join(__dirname, "../public/login.html"));
       res.render("login");
     }
+  });
+
+  app.get("/viewuser/:user", (req, res) => {
+    db.Game.findAll({
+      where: {
+        user: req.params.user
+      }
+    }).then(data => {
+      const gamesObject = {
+        games: data
+      };
+      console.log(gamesObject);
+      res.render("users", gamesObject);
+      // res.send(data);
+    });
   });
 
   // Here we've add our isAuthenticated middleware to this route.

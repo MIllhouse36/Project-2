@@ -29,40 +29,6 @@
       <button id="search-title">Search</button>
       <div id="output"></div>
   </div>
-  <script>
-    $('#view-collection').on('click',function(event){
-      event.preventDefault;
-      $('#output').empty();
-      let user = $("#user-email").text();
-      $.get("/api/view/" + user, data => {
-        console.log(data);
-        for(let i = 0; i < data.length; i++){
-        let html event.preventDefault;= `
-        <div class="search-container">
-        <h3>${data[i].title}</h3>
-        <p>${data[i].summary}</p>
-        <button id='delete-game'">Delete Game</button>
-        </div>
-        `
-        $('#output').append(html);
-        }
-      });
 
-      $(document).on('click','#delete-game',function(event){
-        event.preventDefault;
-        let gameTitle = event.target.parentElement.children[0].outerText;
-        let gameSummary = event.target.parentElement.children[1].outerText;
-        let userData = $("#user-email").text();
-        const game = {
-          title: gameTitle,
-          summary: gameSummary,
-          user: userData
-        }
-        $.post("/api/deletegame", game)
-          .then(() => {
-            location.reload();
-          })
-          .catch(handleLoginErr);
-      })
-    })
-  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
