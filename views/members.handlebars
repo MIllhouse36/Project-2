@@ -17,9 +17,15 @@
         <p>{{city}}, {{state}} {{zip}}</p>
       </div>
     </div>
-    <label for="site-search">Search the site:</label>
+    <label for="site-search">Search for a game:</label>
       <input type="search" id="title-search" name="q"
        aria-label="Search through site content">
+      <label for="platforms">Choose a platform:</label>
+    <select id="platforms">
+      <option value="48">PlayStation 4</option>
+      <option value="49">X Box One</option>
+      <option value="130">Nintendo Switch</option>
+    </select> 
       <button id="search-title">Search</button>
       <div id="output"></div>
   </div>
