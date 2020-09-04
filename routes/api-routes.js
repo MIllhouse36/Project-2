@@ -2,6 +2,7 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const axios = require("axios");
+// const { json } = require("sequelize/types");
 const igdbApiKey = process.env.IGDB_API_KEY;
 
 module.exports = function(app) {
@@ -81,7 +82,7 @@ module.exports = function(app) {
     const split = query.split("xxxxx");
     const platform = split[0];
     const search = decodeURIComponent(split[1]);
-    console.log(search);
+    // console.log(search);
     axios({
       url: "https://api-v3.igdb.com/games",
       method: "GET",
@@ -91,7 +92,7 @@ module.exports = function(app) {
       },
       data: `
       search "${search}";
-      f name,summary,platforms;
+      f name,summary,platforms, cover;
       w platforms = (${platform});
       `
     })
@@ -127,6 +128,25 @@ module.exports = function(app) {
         user: userName
       }
     }).then(data => {
+      console.log(data);
+      res.send(data);
+    });
+  });
+
+  app.get("/api/findgame/:title", (req, res) => {
+    // return everything in the games table
+    const gameTitle = req.params.title;
+    console.log(gameTitle);
+    db.Game.findAll({
+      where: {
+        title: gameTitle
+      }
+    }).then(data => {
+      // console.log(data)
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i].dataValues.user);
+      }
+
       res.send(data);
     });
   });

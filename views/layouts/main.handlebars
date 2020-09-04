@@ -121,7 +121,7 @@
     <button id='find-game'">Find Game</button>
 		</div>
 		`
-		console.log(html);
+		//console.log(html);
 		$('#output').append(html);
 	  }
     });
@@ -145,8 +145,31 @@
 	})
 
 	$(document).on('click','#find-game',function(event){
-		let gameTitle = event.target.parentElement.children[0].outerText;
-		// get route to find game
+		let gameTitle = encodeURIComponent(event.target.parentElement.children[0].outerText);
+		console.log(gameTitle);
+    
+    $('#output').empty();
+		 $.get("/api/findgame/"+ gameTitle, data =>{
+       console.log(data)
+    
+         for(let i = 0; i < data.length; i++){
+		let html = `
+		<div class="search-container">
+		<h3>${data[i].user}</h3>
+
+		</div>
+		`
+		//console.log(html);
+		$('#output').append(html);
+	  }
+     })
+			.then(() => {
+		//		location.reload();
+			})
+			.catch(handleLoginErr);
+
+
+
 	})
 
   });
