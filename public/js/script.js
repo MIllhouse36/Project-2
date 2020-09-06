@@ -147,7 +147,7 @@ $(document).ready(() => {
         for (let i = 0; i < data.length; i++) {
           const html = `
           <div class="search-container">
-          <a href="/viewuser/${data[i].user}" target="_blank">${data[i].user}</a>
+          <a href="/users/${data[i].user}" target="_blank">${data[i].user}</a>
           </div>
           `;
           //console.log(html);
@@ -205,7 +205,7 @@ $(document).ready(() => {
                 <div class="search-container">
                 <h3>${data[i].title}</h3>
                 <p>${data[i].summary}</p>
-                <button id='delete-game'">Delete Game</button>
+                <button class="btn btn-glass" id='delete-game'">Delete Game</button>
                 <br></br>
                 </div>
                 `;

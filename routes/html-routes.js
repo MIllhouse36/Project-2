@@ -31,7 +31,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get("/viewuser/:user", (req, res) => {
+  app.get("/users/:user", (req, res) => {
     db.Game.findAll({
       where: {
         user: req.params.user
