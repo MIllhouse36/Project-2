@@ -104,8 +104,9 @@ $(document).ready(() => {
           <div class="search-container">
           <h3>${data[i].name}</h3>
           <p>${data[i].summary}</p>
-          <button id='add-game'">Add Game</button>
-      <button id='find-game'">Find Game</button>
+          <button class="btn btn-glass" id='add-game'">Add Game</button>
+      <button class="btn btn-glass" id='find-game'">Find Game</button>
+        <br></br>
           </div>
           `;
         //console.log(html);
@@ -206,6 +207,7 @@ $(document).ready(() => {
                 <h3>${data[i].title}</h3>
                 <p>${data[i].summary}</p>
                 <button id='delete-game'">Delete Game</button>
+                <br></br>
                 </div>
                 `;
         $("#output").prepend(html);
