@@ -151,6 +151,7 @@ $(document).ready(() => {
           </div>
           `;
           //console.log(html);
+          $("#output").empty();
           $("#output").append(html);
         }
       })
