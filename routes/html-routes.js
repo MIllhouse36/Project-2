@@ -41,6 +41,7 @@ module.exports = function(app) {
         games: data
       };
       console.log(gamesObject);
+      console.log(gamesObject.games);
       res.render("users", gamesObject);
       // res.send(data);
     });

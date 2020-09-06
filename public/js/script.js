@@ -147,9 +147,7 @@ $(document).ready(() => {
         for (let i = 0; i < data.length; i++) {
           const html = `
           <div class="search-container">
-          <button type="button" class="btn btn-primary lookup-user" data-toggle="modal" data-target="#exampleModal">
-          ${data[i].user}
-        </button>
+          <a href="/viewuser/${data[i].user}" target="_blank">${data[i].user}</a>
           </div>
           `;
           //console.log(html);
