@@ -4,8 +4,8 @@ form.login {
 }
 
 .search-container{
-  border-top:1px solid gray;
   border-bottom:1px solid gray;
+  padding-top:10px;
 }
 
 * {
@@ -240,4 +240,17 @@ nav.btn-bar {
   -webkit-box-pack: end;
           justify-content: flex-end;
   flex-wrap: wrap;
+}
+
+#output{
+  background-color:white;
+  padding:20px;
+  margin:20px;
+  border:1px solid gray;
+}
+
+#output h4{
+  color:crimson;
+  padding:5px;
+  border-bottom:1px solid crimson;
 }

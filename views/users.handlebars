@@ -5,14 +5,20 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="stylesheets/style.css">
 </head> --}}
+<div style="width:100%; padding:25px 0; margin-bottom:20px;">
+  <center>
+    <h1>Collection of Games for <span id="username-output"></span></h1>
+    <p><strong>Location: <span id="location-info"></span></strong></p>
+    <a href="#" id="contact-email" class="btn btn-glass">Contact User >></a>
+  </center>
+</div>
 <div class="container">
-  <center><h2>Collection of Games</h2></center>
     <div class="row">
       <div class="col">
         {{#each games}} 
-        <h3>{{dataValues.title}} / {{dataValues.platform}}</h3>
+        <h3><span style="color:crimson;">{{dataValues.title}}</span> [{{dataValues.platform}}]</h3>
         <p>Summary: {{dataValues.summary}}</p>
-        <p>Username: {{dataValues.user}}</p>
+        <span class="username-input" id="username-input">{{dataValues.user}}</span>
         <hr>
         {{/each}}
       </div>

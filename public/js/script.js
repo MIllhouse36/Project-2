@@ -59,8 +59,8 @@ $(document).ready(() => {
       !userData.state ||
       !userData.zip
     ) {
+      handleLoginErr();
       return;
-      // todo: Add error "Empty form fields"
     }
     // If we have an email and password, run the signUpUser function
     signUpUser(userData);
@@ -81,9 +81,10 @@ $(document).ready(() => {
       .catch(handleLoginErr);
   }
 
-  function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
+  function handleLoginErr() {
+    $("#alert .msg").text("Error");
     $("#alert").fadeIn(500);
+    // $("#exampleModal").modal("show");
   }
 
   $.get("/api/user_data").then(data => {
@@ -139,21 +140,24 @@ $(document).ready(() => {
         event.target.parentElement.children[0].outerText
       );
       console.log(gameTitle);
-
       $("#output").empty();
       $.get("/api/findgame/" + gameTitle, data => {
         console.log(data);
-
         for (let i = 0; i < data.length; i++) {
-          const html = `
+          const usershtml = `
           <div class="search-container">
           <a href="/users/${data[i].user}" target="_blank">${data[i].user}</a>
           </div>
           `;
           //console.log(html);
           $("#output").empty();
-          $("#output").append(html);
+          $("#output").append(usershtml);
         }
+        $("#output").prepend(
+          `<h4>List of users who have <strong>${decodeURIComponent(
+            gameTitle
+          )}</strong>:</h4>`
+        );
       })
         .then(() => {
           //		location.reload();
@@ -172,7 +176,7 @@ $(document).ready(() => {
   $(document).on("click", "#delete-game", event => {
     event.preventDefault;
     const gameTitle = event.target.parentElement.children[0].outerText;
-    const gameSummary = event.target.parentElement.children[1].outerText;
+    const gameSummary = event.target.parentElement.children[2].outerText;
     const userData = $("#user-email").text();
     const game = {
       title: gameTitle,
@@ -204,16 +208,29 @@ $(document).ready(() => {
         const html = `
                 <div class="search-container">
                 <h3>${data[i].title}</h3>
-                <p>${data[i].summary}</p>
+                <p>Platform: ${data[i].platform}</p>
+                <p>Summary: ${data[i].summary}</p>
                 <button class="btn btn-glass" id='delete-game'">Delete Game</button>
                 <br></br>
                 </div>
                 `;
         $("#output").prepend(html);
       }
+      $("#output").prepend("<h4>Your Collection:</h4>");
     });
   }
 
+  $("#username-output").text($("#username-input").text());
+  $(".username-input").css("display", "none");
+  $("#contact-email").attr("href", "mailto:" + $("#username-input").text());
+  const username = $("#username-input").text();
+  $.get("/api/userinfo/" + username).then(data => {
+    $("#location-info").text(
+      data[0].city + ", " + data[0].state + " " + data[0].zip
+    );
+  });
+
+  // Load the collection when the page loads
   const user = $("#user-email").text();
   outputCollection(user);
 });
