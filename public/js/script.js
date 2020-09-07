@@ -228,7 +228,7 @@ $(document).ready(() => {
     $("#location-info").text(
       data[0].city + ", " + data[0].state + " " + data[0].zip
     );
-});
+  });
 
   // Load the collection when the page loads
   const user = $("#user-email").text();
