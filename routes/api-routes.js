@@ -128,7 +128,7 @@ module.exports = function(app) {
         user: userName
       }
     }).then(data => {
-      console.log(data);
+      // console.log(data);
       res.send(data);
     });
   });
@@ -147,6 +147,18 @@ module.exports = function(app) {
         console.log(data[i].dataValues.user);
       }
 
+      res.send(data);
+    });
+  });
+
+  app.get("/api/userinfo/:user", (req, res) => {
+    // return everything in the games table
+    const username = req.params.user;
+    db.User.findAll({
+      where: {
+        email: username
+      }
+    }).then(data => {
       res.send(data);
     });
   });
