@@ -139,28 +139,25 @@ $(document).ready(() => {
       const gameTitle = encodeURIComponent(
         event.target.parentElement.children[0].outerText
       );
-      console.log(gameTitle);
-      $("#output").empty();
       $.get("/api/findgame/" + gameTitle, data => {
         console.log(data);
-        for (let i = 0; i < data.length; i++) {
-          const usershtml = `
-          <div class="search-container">
-          <a href="/users/${data[i].user}" target="_blank">${data[i].user}</a>
-          </div>
-          `;
-          //console.log(html);
-          $("#output").empty();
-          $("#output").append(usershtml);
-        }
-        $("#output").prepend(
+        $("#output").empty();
+        $("#output").append(
           `<h4>List of users who have <strong>${decodeURIComponent(
             gameTitle
           )}</strong>:</h4>`
         );
       })
-        .then(() => {
-          //		location.reload();
+        .then(data => {
+          console.log(data);
+          for (let i = 0; i < data.length; i++) {
+            const usershtml = `
+            <div class="search-container">
+            <a href="/users/${data[i].user}" target="_blank">${data[i].user}</a>
+            </div>
+            `;
+            $("#output").append(usershtml);
+          }
         })
         .catch(handleLoginErr);
     });

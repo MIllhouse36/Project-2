@@ -58,6 +58,7 @@ module.exports = function(app) {
   app.post("/api/deletegame", (req, res) => {
     db.Game.destroy({
       where: {
+        user: req.body.user,
         title: req.body.title
       }
     })
@@ -142,11 +143,6 @@ module.exports = function(app) {
         title: gameTitle
       }
     }).then(data => {
-      // console.log(data)
-      for (let i = 0; i < data.length; i++) {
-        console.log(data[i].dataValues.user);
-      }
-
       res.send(data);
     });
   });
