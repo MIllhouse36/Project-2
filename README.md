@@ -1,6 +1,5 @@
 # GameSwap
-
-![gameswapscreenshot(https://user-images.githubusercontent.com/64652517/92531381-27ccb080-f1fc-11ea-8023-cbbae150650e.png)
+![gameswapscreenshot](https://user-images.githubusercontent.com/64652517/92532842-37012d80-f1ff-11ea-9092-e2e513f6edc3.png)
 
 
 ## Description
